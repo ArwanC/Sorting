@@ -1,2 +1,2 @@
-# test
-![Farmers Market Finder - Animated gif demo](insertion_sort.gif)
+# Sorting algorithm visualization
+![Insertion Sort - Animated gif demo](insertion_sort.gif)
