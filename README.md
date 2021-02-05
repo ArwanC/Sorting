@@ -1,2 +1,2 @@
 # test
-![Farmers Market Finder - Animated gif demo](demo/demo.gif)
+![Farmers Market Finder - Animated gif demo](insertion_sort.gif)
