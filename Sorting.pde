@@ -1,19 +1,20 @@
 import java.util.*;
 
 /*
-Space: Randomize list
-1: Bubble Sort
-2: Selection Sort
-3: Insertion Sort
-4: Quick Sort
+Inputs:
+"Space" - Randomize list
+"1" - Bubble Sort
+"2" - Selection Sort
+"3" - Insertion Sort
+"4" - Quick Sort
 */
 
 // Window & rectangles
-int win_h = 600;
+int win_h = 700;
 int win_w = 1200;
-int nb_rect = 40;
+int nb_rect = 100;
 int thickness = int(win_w/nb_rect);
-int height_increment = int(win_h/nb_rect);
+int height_increment = int((win_h-100)/nb_rect);
 char input_key;
 Rectangle[] rectangles = new Rectangle[nb_rect];
 
@@ -24,6 +25,10 @@ int idx = 0;
 int comparaisons = 0;
 int accesses = 0;
 String sort_alg;
+boolean launch_thread = true;
+SomeRunnable someRunnable = new SomeRunnable();
+Thread thread;
+
 
 void settings() {
   size(win_w, win_h); //  try adding P2D
@@ -33,16 +38,11 @@ void setup() {
   shuffle_rectangles();
   show_rectangles();
   reset_vars();
+  frameRate(2000);
   noLoop();
 }
 
-void draw() {  
-  //try {
-  //  Thread.sleep(500);
-  //}
-  //catch(InterruptedException ex) {
-  //  Thread.currentThread().interrupt();
-  //}
+void draw() {
   if (input_key == '1') {
     sort_alg = "Bubble";
     bubble_sort();
@@ -56,12 +56,20 @@ void draw() {
     insertion_sort();
   }
   else if (input_key == '4') {
-    sort_alg = "Quick";
-    quick_sort(0, rectangles.length-1);
+    if (launch_thread) {
+      sort_alg = "Quick";
+      thread = new Thread(someRunnable);
+      thread.start();
+      launch_thread = false;
+    }
     show_rectangles();
-    noLoop();
   }
   else if (input_key == 'v') {
+    if (launch_thread==false) {
+      //println("thread stopped");
+      //t1.stop();
+      launch_thread = true;
+    }
     is_sorted();
   }
   else if (input_key == ' ') {
@@ -70,7 +78,7 @@ void draw() {
   else {
     noLoop();
   }
-  saveFrame("frame-######.png"); 
+//saveFrame("frame-######.png");
 }
 
 void keyPressed() {
@@ -109,7 +117,9 @@ void shuffle_rectangles() {
       init_heights[change] = temp;
   }
   for (int i=0; i<nb_rect; i++) {    
-    rectangles[i] = new Rectangle(init_positions[i], init_heights[i], thickness); 
+    rectangles[i] = new Rectangle(init_positions[i],
+                                  init_heights[i],
+                                  thickness); 
   }
 }
 
