@@ -59,6 +59,14 @@ void insertion_sort() {
   }
 }
 
+public class SomeRunnable implements Runnable {
+
+      public void run(){
+        quick_sort(0, rectangles.length-1);
+        input_key = 'v';
+      }
+ }
+
 void quick_sort(int start, int end) {
   if (start >= end){
     return;
@@ -71,11 +79,15 @@ void quick_sort(int start, int end) {
 int partition(int start, int end) {
   int pivot_idx = start;
   for (int i=start; i<end; i++) {
-    observing(i, end);
     if (rectangles[i].h < rectangles[end].h) {
-      observing(i, pivot_idx);
       rectangles[i].swap_with(rectangles[pivot_idx]);
       pivot_idx++;
+    }
+    try {
+      Thread.sleep(30);
+    }
+    catch(InterruptedException ex) {
+      Thread.currentThread().interrupt();
     }
   }
   rectangles[pivot_idx].swap_with(rectangles[end]);
