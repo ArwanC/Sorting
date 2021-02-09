@@ -2,7 +2,7 @@
 
 ![Insertion Sort - Animated gif demo](insertion_sort.gif)
 
-A visualization of a sorting algorithm using the [Processing](https://processing.org/) graphic library (running Java).
+A visualization of different sorting algorithms using the [Processing](https://processing.org/) graphic library (running Java).
 
 ## Currently implemented sorting algorithms:
 
